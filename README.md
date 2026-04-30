@@ -2,6 +2,14 @@
 
 > 本项目基于Claude Code意外开源版魔改而来，不喜勿喷，面向 CTF、靶场与授权安全研究场景的终端 AI Agent。项目基于 Claude Code 开源社区版思路改造，支持 DeepSeek、GLM / 智谱、OpenAI 与自定义 OpenAI-compatible 接口。本项目魔改自：https://github.com/claude-code-best/claude-code
 
+## 先看截图
+
+![img](https://cdn.jsdelivr.net/gh/CatchCatOoO/blogs-images@master/Gemini3.1pro%E6%8E%A5%E5%85%A5.png)
+
+![img](https://cdn.jsdelivr.net/gh/CatchCatOoO/blogs-images@master/deepseekv4pro%E6%8E%A5%E5%85%A5.png)
+
+![img](https://cdn.jsdelivr.net/gh/CatchCatOoO/blogs-images@master/%E5%85%8D%E6%9D%80.png)
+
 ## 项目简介
 
 CatchCat Code 是一个运行在终端中的 AI 编程与 CTF 辅助 Agent。它可以在本地项目目录中读取文件、搜索代码、分析题目线索、辅助编写脚本、整理思路，并通过可切换的模型 Provider 连接不同的大模型服务。
@@ -351,13 +359,6 @@ $env:ZHIPU_CUSTOM_API_KEY="你的真实 API Key"
 
 配置文件中只保存环境变量名，不要保存明文 API Key。
 
-## 使用截图
-
-![img](https://cdn.jsdelivr.net/gh/CatchCatOoO/blogs-images@master/Gemini3.1pro%E6%8E%A5%E5%85%A5.png)
-
-![img](https://cdn.jsdelivr.net/gh/CatchCatOoO/blogs-images@master/deepseekv4pro%E6%8E%A5%E5%85%A5.png)
-
-![img](https://cdn.jsdelivr.net/gh/CatchCatOoO/blogs-images@master/%E5%85%8D%E6%9D%80.png)
 
 ## CTF 推荐工作流
 
