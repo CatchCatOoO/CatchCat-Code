@@ -55,52 +55,41 @@ CatchCat Code 是一个运行在终端中的 AI 编程与 CTF 辅助 Agent。它
 ## 安装与运行
 
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/CatchCatOoO/CatchCat-Code.git
 cd CatchCat-code
 bun install
 ```
 
-开发模式运行：
+开发模式运行(一般直接用这个就行)：
 
 ```bash
 bun run dev
 ```
 
-构建：
+可选：构建：
 
 ```bash
 bun run build
 ```
 
-构建产物默认输出到：
+可选：构建产物默认输出到：
 
 ```text
 dist/cli.js
 ```
 
-如果你保留了 `package.json` 中的默认 `bin` 配置，命令名可能是：
+可选：如果你保留了 `package.json` 中的默认 `bin` 配置，命令名可能是：
 
 ```bash
 claude-js
 ```
 
-如果你已经将命令别名或包名改成 `claude`，则可以直接运行：
+可选：如果你已经将命令别名或包名改成 `claude`，则可以直接运行：
 
 ```bash
 claude
 ```
 
-也可以在项目目录中直接使用开发入口：
-
-```bash
-bun run src/entrypoints/cli.tsx
-```
-
-管道模式示例：
-
-```bash
-echo "hello" | bun run src/entrypoints/cli.tsx -p
-```
 
 ## 常用脚本
 
@@ -129,20 +118,8 @@ echo "hello" | bun run src/entrypoints/cli.tsx -p
 7. zhipu / glm
 8. custom
 
-非 Anthropic Provider 使用 OpenAI-compatible `/chat/completions` 风格接口。不同模型的工具调用、流式输出、推理内容字段支持情况取决于具体服务商。
 
-### Provider 通用环境变量
 
-| 变量 | 说明 |
-| --- | --- |
-| `CLAUDE_CODE_PROVIDER` | 当前 Provider，可选 `openai`、`deepseek`、`zhipu`、`glm`、`custom` |
-| `CLAUDE_CODE_MODEL` | 当前模型名 |
-| `CLAUDE_CODE_BASE_URL` | 自定义 Provider 的 Base URL |
-| `CLAUDE_CODE_API_KEY_ENV` | 自定义 Provider 使用的 API Key 环境变量名 |
-| `CLAUDE_CODE_PROVIDERS_CONFIG` | 自定义 `providers.json` 路径 |
-| `CLAUDE_CODE_EXTRA_BODY_JSON` | 需要追加到请求体的 JSON 字符串 |
-
-> 不要把真实 API Key 写进仓库、截图、Issue 或 `providers.json`。推荐使用环境变量保存密钥。
 
 ## DeepSeek 接入
 
@@ -168,12 +145,6 @@ $env:CLAUDE_CODE_MODEL="deepseek-chat"
 deepseek
 ```
 
-也可以直接尝试：
-
-```text
-/model deepseek
-```
-
 ### 永久设置：推荐
 
 PowerShell 执行：
@@ -184,7 +155,7 @@ PowerShell 执行：
 [Environment]::SetEnvironmentVariable("CLAUDE_CODE_MODEL", "deepseek-chat", "User")
 ```
 
-然后关闭当前终端，重新打开一个新终端，再启动 Claude Code。
+然后关闭当前终端，重新打开一个新终端，再启动 CatchCat Code。
 
 ## OpenAI 接入
 
@@ -193,10 +164,10 @@ PowerShell 执行：
 ```powershell
 $env:OPENAI_API_KEY="你的 OpenAI API Key"
 $env:CLAUDE_CODE_PROVIDER="openai"
-$env:CLAUDE_CODE_MODEL="gpt-4.1"
+$env:CLAUDE_CODE_MODEL="gpt-5.5"
 ```
 
-然后启动 Claude Code：
+然后启动 CatchCat Code：
 
 ```powershell
 claude
@@ -256,11 +227,6 @@ $env:CLAUDE_CODE_MODEL="glm-4.5"
 /model glm
 ```
 
-或：
-
-```text
-/model zhipu
-```
 
 ### 永久设置：推荐
 
@@ -282,18 +248,10 @@ $env:CLAUDE_CODE_MODEL="glm-4.5"
 $env:CLAUDE_CODE_PROVIDER="custom"
 $env:CLAUDE_CODE_BASE_URL="https://open.bigmodel.cn/api/paas/v4"
 $env:CLAUDE_CODE_MODEL="你在 Cherry Studio 里能用的模型名"
-$env:CLAUDE_CODE_API_KEY_ENV="ZHIPU_CUSTOM_API_KEY"
+$env:CLAUDE_CODE_API_KEY_ENV="ZHIPU_CUSTOM_API_KEY（这里你可以随便取名字）"
 $env:ZHIPU_CUSTOM_API_KEY="你的真实 API Key"
 ```
 
-重点是这两行：
-
-```powershell
-$env:CLAUDE_CODE_API_KEY_ENV="ZHIPU_CUSTOM_API_KEY"
-$env:ZHIPU_CUSTOM_API_KEY="你的真实 API Key"
-```
-
-第一行指定“真实 Key 存在哪个环境变量里”，第二行才是真实 Key。
 
 启动 Claude Code 后输入：
 
@@ -366,7 +324,7 @@ $env:ZHIPU_CUSTOM_API_KEY="你的真实 API Key"
 
 ```bash
 cd ./challenge
-claude
+bun run dev
 ```
 
 建议先让 Agent 做只读分析：
@@ -417,43 +375,6 @@ echo $env:CLAUDE_CODE_API_KEY_ENV
 
 `CLAUDE_CODE_API_KEY_ENV` 的值应该是变量名，而不是真实 Key。
 
-### Custom Base URL 不工作
-
-确认 Base URL 是服务商的 OpenAI-compatible 根路径。程序会自动拼接 `/chat/completions`，通常不需要手动写到最后。
-
-例如：
-
-```text
-https://open.bigmodel.cn/api/paas/v4
-```
-
-### 命令 `claude` 不存在
-
-如果没有配置 `claude` 命令，可以先使用：
-
-```bash
-bun run dev
-```
-
-或：
-
-```bash
-bun run src/entrypoints/cli.tsx
-```
-
-如果构建后使用默认 `bin`，命令可能是：
-
-```bash
-claude-js
-```
-
-## 安全建议
-
-- 不要把 API Key 提交到 Git。
-- 不要在包含真实业务密钥、隐私数据、生产配置的目录中直接运行 Agent。
-- 运行不可信附件前，优先使用 Docker、虚拟机或沙箱。
-- 对 Shell 命令保持审查，尤其是删除、覆盖、网络访问、权限提升类命令。
-- CTF 题目结束后，及时清理临时 Token、日志、样本和输出文件。
 
 ## 许可证
 
